@@ -13,4 +13,16 @@ export default {
     historyApiFallback: true,
     contentBase: sourcePath,
   },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        options: {
+          babelrc: false,
+          presets: ['env', 'react'],
+        },
+      },
+    ],
+  },
 }
