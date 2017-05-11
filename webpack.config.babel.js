@@ -1,4 +1,5 @@
 import {resolve} from 'path'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const sourcePath = resolve(__dirname, 'source')
 
@@ -11,7 +12,7 @@ export default {
   devServer: {
     port: 4000,
     historyApiFallback: true,
-    contentBase: sourcePath,
+    // contentBase: sourcePath,
   },
   module: {
     rules: [
@@ -23,6 +24,20 @@ export default {
           presets: ['env', 'react'],
         },
       },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
+      },
+      {
+        test: /\.(woff2|woff|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'base64-font-loader'
+      },
     ],
   },
+  plugins: [
+    new ExtractTextPlugin("styles.css"),
+  ],
 }
